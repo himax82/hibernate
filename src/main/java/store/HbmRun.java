@@ -1,5 +1,7 @@
 package store;
 
+import model.Author;
+import model.Book;
 import model.Brand;
 import model.Car;
 import org.hibernate.Session;
@@ -11,8 +13,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 public class HbmRun {
 
     public static void main(String[] args) {
-        Brand toyota = Brand.of("Toyota");
-
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure().build();
         try {
@@ -20,28 +20,25 @@ public class HbmRun {
             Session session = sf.openSession();
             session.beginTransaction();
 
-            Car one = Car.of("Corolla");
-            session.save(one);
+            Book abc = Book.of("First Book");
+            Book chemistry = Book.of("Chemistry textbook");
+            Book physics  = Book.of("Physics textbook");
+            Book maths = Book.of("Math textbook");
 
-            Car two = Car.of("Camry");
-            session.save(two);
+            Author ivan = Author.of("Ivanov Ivan");
+            ivan.addBook(abc);
+            ivan.addBook(maths);
 
-            Car three = Car.of("Rav4");
-            session.save(three);
+            Author petr = Author.of("Petrov Petr");
+            petr.addBook(maths);
+            petr.addBook(chemistry);
+            petr.addBook(physics);
 
-            Car four = Car.of("Prado");
-            session.save(four);
+            session.persist(ivan);
+            session.persist(petr);
 
-            Car five = Car.of("TLC 300");
-            session.save(five);
-
-            toyota.addCar(session.load(Car.class, 1));
-            toyota.addCar(session.load(Car.class, 2));
-            toyota.addCar(session.load(Car.class, 3));
-            toyota.addCar(session.load(Car.class, 4));
-            toyota.addCar(session.load(Car.class, 5));
-
-            session.save(toyota);
+            Author author = session.get(Author.class, ivan.getId());
+            session.remove(author);
 
             session.getTransaction().commit();
             session.close();
@@ -50,6 +47,5 @@ public class HbmRun {
         } finally {
             StandardServiceRegistryBuilder.destroy(registry);
         }
-        System.out.println(toyota.getBrands().size());
     }
 }

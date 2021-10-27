@@ -12,9 +12,14 @@ public class Car {
 
     private String name;
 
-    public static Car of(String name) {
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
+
+    public static Car of(String name, Brand brand) {
         Car car = new Car();
         car.name = name;
+        car.brand = brand;
         return car;
     }
 
@@ -49,5 +54,11 @@ public class Car {
     @Override
     public int hashCode() {
         return Objects.hash(id, name);
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" + "id=" + id + ", name='" + name + '\''
+                + ", brand=" + brand + '}';
     }
 }

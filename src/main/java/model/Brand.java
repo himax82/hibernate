@@ -60,12 +60,12 @@ public class Brand {
             return false;
         }
         Brand brand = (Brand) o;
-        return id == brand.id && Objects.equals(name, brand.name) && Objects.equals(brands, brand.brands);
+        return id == brand.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, brands);
+        return Objects.hash(id);
     }
 
     @Override

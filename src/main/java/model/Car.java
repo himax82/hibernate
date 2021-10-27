@@ -48,12 +48,12 @@ public class Car {
             return false;
         }
         Car car = (Car) o;
-        return id == car.id && Objects.equals(name, car.name);
+        return id == car.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id);
     }
 
     @Override

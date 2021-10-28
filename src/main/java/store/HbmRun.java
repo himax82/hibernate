@@ -32,7 +32,7 @@ public class HbmRun {
             List<Candidate> list = session.createQuery("from Candidate").list();
             list.forEach(System.out::println);
 
-            Candidate evgen = (Candidate) session.createQuery("from Candidate c where c.salary = :sal")
+            Candidate evgen = (Candidate) session.createQuery("from Candidate where experience = :sal")
                     .setParameter("sal", "6 месяцев")
                     .uniqueResult();
             System.out.println(evgen);

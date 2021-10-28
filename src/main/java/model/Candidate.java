@@ -17,6 +17,10 @@ public class Candidate {
 
     private int salary;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "base_id")
+    private Base base;
+
     public static Candidate of(String name, String experience, int salary) {
         Candidate candidate = new Candidate();
         candidate.setName(name);
@@ -57,6 +61,14 @@ public class Candidate {
         this.salary = salary;
     }
 
+    public Base getBase() {
+        return base;
+    }
+
+    public void setBase(Base base) {
+        this.base = base;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -77,8 +89,7 @@ public class Candidate {
     @Override
     public String toString() {
         return "Candidate{" + "id=" + id + ", name='" + name + '\''
-                + ", experience=" + experience
-                + ", salary=" + salary
-                + '}';
+                + ", experience='" + experience + '\''
+               + ", salary=" + salary + ", base=" + base + '}';
     }
 }
